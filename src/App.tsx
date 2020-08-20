@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useCallback, useState} from 'react'
+import Number from "./Number";
+import {Form, Input} from "./Input";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [counter, setCounter] = useState<number>(0)
+    const [name, setName] = useState<string>('')
+
+    const add = useCallback(() => {
+        setCounter(counter + 1)
+    }, [counter])
+
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value)
+    }
+
+    return (
+        <div>
+            <Form>
+                <Input value={name} onChange={onChange} />
+            </Form>
+
+            <Number count={counter}/>
+            <button onClick={add}>ADD</button>
+        </div>
+    )
 }
 
-export default App;
+export default App
